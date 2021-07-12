@@ -22,6 +22,4 @@ public class FirstController_Login {
 		return "login";
 	}
 	
-	
-	
 }

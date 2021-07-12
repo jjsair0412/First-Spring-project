@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Jinsoung.member.*;
 import com.Jinsoung.member.service.*;
@@ -40,10 +41,16 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/memLogin", method=RequestMethod.POST)
-	public String memLogin(Model model, HttpServletRequest request) {
+	
+	//request가 사용자가 입력한 값을 가지고있다.
+	public String memLogin(Model model, @RequestParam("memId") String memId, 
+			                     @RequestParam(value = "memPw", required = false, defaultValue = "1234") String memPw) {
+		// @RequestParma을 활용해 바로 받아올 수 있다.
+		// required라는 속성이 있다.
+		// true는 , 반드시 값이 넘어와야 한다. 값이 넘어오지 않으면 예외가 발생한다.
+		// false는 값이 넘어오지 않아도 예외가 발생하지 않는다.
+		// false일 경우, 값이 넘어오지 않는다면 default값을 정해주는 defaultValue를 설정할 수 도 있다.
 		
-		String memId = request.getParameter("memId");
-		String memPw = request.getParameter("memPw");
 		
 		Member member = service.memberSearch(memId, memPw);
 		
