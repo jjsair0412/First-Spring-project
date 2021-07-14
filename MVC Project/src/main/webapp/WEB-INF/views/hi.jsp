@@ -8,11 +8,9 @@
 </head>
 <body>
 	<p>
-	안녕 내 이름은 ${myInfo.name} 이야.</br>
-	내 학번은 ${myInfo.number}야.</br>
-	내 나이는 ${myInfo.age}야.</br>
-	내 휴대폰 번호는${myInfo.Phone1} ${myInfo.Phone2} ${myInfo.Phone3}이야. 반가워
-	The time on the server is ${serverTime}.
+	안녕 내 이름은 ${myInfo.NAME} 이야.</br>
+	내 학번은 ${myInfo.NUM}야.</br>
+	내 나이는 ${myInfo.AGE}야.</br>
 	</p>
 </body>
 </html>
