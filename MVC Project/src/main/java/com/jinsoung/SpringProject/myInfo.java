@@ -3,7 +3,7 @@ package com.jinsoung.SpringProject;
 import java.awt.List;
 
 import org.springframework.stereotype.Service;
-
+@Service
 public class myInfo {
 	// 받아온 name과 일치하는 이름의 멤버변수들을 만들고 해당 변수들에게 각각
 	// getter/setter를 만들어준다.

@@ -8,9 +8,9 @@
 </head>
 <body>
 	<p>
-	찾은사람 이름: ${selfNAME}</br>
-	찾은사람 학번: ${selfNUM}</br>
-	찾은사람 나이: ${selfAGE}</br>
+	업데이트한사람 이름: ${updateNAME}</br>
+	업데이트후 학번: ${updateNUM}</br>
+	업데이트한사람 나이: ${updateAGE}</br>
 	</p>
 </body>
 </html>

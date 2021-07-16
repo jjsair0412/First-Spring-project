@@ -1,24 +1,21 @@
 package com.jinsoung.SpringProject;
 
 import java.text.DateFormat;
+
 import java.util.Date;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.jinsoung.SpringProject.memberDao.Dao;
-import com.jinsoung.SpringProject.memberDao.myInfoDto;
 import com.jinsoung.SpringProject.memberService.MemService;
 
 /**
@@ -26,14 +23,16 @@ import com.jinsoung.SpringProject.memberService.MemService;
  */
 @Controller
 public class HomeController {
-	
-	private MemService service = new MemService();
+
+	// MemService객체를 new키워드로 생성하지 않아도, 해당 객체에 Service 어노테이션을 달아줫기 때문에, 객체가 자동으로 주입되게 된다.
+	@Autowired
+	private MemService service;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	
+
 	@ModelAttribute("serverTime")
 	// ModelAttribute()안에 value값을 작성하면, 어떤 메서드가 실행되던간에
 	// 해당 어노테이션이 있는 메서드는 무조건 실행된다.
@@ -41,17 +40,17 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
+		model.addAttribute("serverTime", formattedDate);
+
 		return "home";
 	}
-	
+
 //	// 기존 HttpServletRequest를 이용한 방법
 //	@RequestMapping(value = "/hi", method = RequestMethod.POST)
 //	public String FirstRequest(Model model, HttpServletRequest request) {
@@ -130,21 +129,51 @@ public class HomeController {
 //		return "hi";
 //		
 //	}
-	
+
 	@RequestMapping(value = "/hi", method = RequestMethod.POST)
-	public String FirstRequest(myInfo myinfo /* getset 객체 명시, 이때 Setter들이 작동하며
-	                                          변수들로 들어가게 된다.. */) {
-		
-		service.MemServiceInsert(myinfo.getNAME(),myinfo.getNUM(),myinfo.getAGE());
+	public String FirstRequest(myInfo myinfo /* getset 객체 명시, 이때 Setter들이 작동하며 변수들로 들어가게 된다.*/) {
+
+		service.MemServiceInsert(myinfo.getNAME(), myinfo.getNUM(), myinfo.getAGE());
 		return "hi";
+
+	}
+
+	@RequestMapping(value = "/myinfo", method = RequestMethod.GET)
+	public String SecondRequest(Model model, myInfo myinfo) {
 		
+		// return값이 myInfoDto기 때문에, 받아온 리턴값을 myinfoDto객체에 저장
+		myinfo = service.MemServiceSelect(myinfo.getNAME());
+		// 저장한 값을 model을 활용해서 jsp로 전송
+		model.addAttribute("selfNAME",myinfo.getNAME());
+		model.addAttribute("selfNUM",myinfo.getNUM());
+		model.addAttribute("selfAGE",myinfo.getAGE());
+		return "AllInfo";
+	}
+
+	@RequestMapping(value = "/updateData", method = RequestMethod.POST)
+	public ModelAndView ThirdRequest(myInfo myinfo) {
+		
+		
+		myinfo = service.MemServiceUpdateNum(myinfo.getNUM(),myinfo.getNAME());
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("updateNAME",myinfo.getNAME());
+		mav.addObject("updateNUM",myinfo.getNUM());
+		mav.addObject("updateAGE",myinfo.getAGE());
+		mav.setViewName("updateOk");
+		
+		return mav;
 	}
 	
-	@RequestMapping(value = "/myinfo", method = RequestMethod.GET)
-	public String SecondRequest(myInfoDto myinfoDto,Model model) {
+	@RequestMapping(value = "/deleteData", method = RequestMethod.POST)
+	public ModelAndView fourRequest(myInfo myinfo) {
 		
-		service.MemServiceSelect(myinfoDto.getSelfNAME());
-		return "hi";
+		service.MemServiceDeleteNum(myinfo.getNAME());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("removeOK");
+		
+		return mav;
 	}
 	
 }

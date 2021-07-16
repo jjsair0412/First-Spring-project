@@ -6,15 +6,24 @@
 </head>
 <body>
 <h1>hi</h1>
-	<form action="/hi" method="post">
+	<form action="/hi" method="POST">
 		name : <input type="text" name="NAME" ><br />
-		hukban : <input type="text" name="NUM" ><br />
+		SchoolNumber : <input type="text" name="NUM" ><br />
 		age : <input type="text" name="AGE" ><br />
-		<input type="submit" value="Join" >
+		<input type="submit" value="JoinBtn" >
 	</form>
 	<form action ="/myinfo" method="GET">
-		myInfo : <input type="text" name="selfNAME" ><br />
-		<input type="submit" value="AllInfo">
+		myInfo : <input type="text" name="NAME" ><br />
+		<input type="submit" value="AllmyInfoBtn">
+	</form>
+	<form action ="/updateData" method="POST">
+		update SchoolNumber : <input type="text" name="NUM" ><br />
+		update Person : <input type="text" name="NAME" ><br />
+		<input type="submit" value="updateBtn">
+	</form>
+	<form action ="/deleteData" method="POST">
+		delete NAME : <input type="text" name="NAME" ><br />
+		<input type="submit" value="deleteBtn">
 	</form>
 </body>
 </html>

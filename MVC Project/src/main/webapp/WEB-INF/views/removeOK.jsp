@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	삭제 완료 
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  ${myInfo.NAME} 삭제완료. </P>
 </body>
 </html>
