@@ -13,20 +13,20 @@ public class myInfo {
 	public String getNAME() {
 		return NAME;
 	}
-	public void setNAME(String nAME) {
-		NAME = nAME;
+	public void setNAME(String NAME) {
+		this.NAME = NAME;
 	}
 	public int getNUM() {
 		return NUM;
 	}
-	public void setNUM(int nUM) {
-		NUM = nUM;
+	public void setNUM(int NUM) {
+		this.NUM = NUM;
 	}
 	public int getAGE() {
 		return AGE;
 	}
-	public void setAGE(int aGE) {
-		AGE = aGE;
+	public void setAGE(int AGE) {
+		this.AGE = AGE;
 	}
 	
 }

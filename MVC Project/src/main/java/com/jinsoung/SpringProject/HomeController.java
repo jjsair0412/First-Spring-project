@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jinsoung.SpringProject.memberDao.Dao;
+import com.jinsoung.SpringProject.memberDao.myInfoDto;
+import com.jinsoung.SpringProject.memberService.MemService;
 
 /**
  * Handles requests for the application home page.
@@ -25,13 +27,12 @@ import com.jinsoung.SpringProject.memberDao.Dao;
 @Controller
 public class HomeController {
 	
+	private MemService service = new MemService();
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@Autowired
-	Dao dao;
 	
 	@ModelAttribute("serverTime")
 	// ModelAttribute()안에 value값을 작성하면, 어떤 메서드가 실행되던간에
@@ -133,19 +134,17 @@ public class HomeController {
 	@RequestMapping(value = "/hi", method = RequestMethod.POST)
 	public String FirstRequest(myInfo myinfo /* getset 객체 명시, 이때 Setter들이 작동하며
 	                                          변수들로 들어가게 된다.. */) {
-		dao = new Dao();
 		
-		int result = 0;
-		result = dao.Insert(myinfo.getNAME(), myinfo.getNUM(), myinfo.getAGE());
-		
-		if(result == 1) {
-			System.out.println("입력성공");
-		}else {
-			System.out.println("실패");
-		}
-		
+		service.MemServiceInsert(myinfo.getNAME(),myinfo.getNUM(),myinfo.getAGE());
 		return "hi";
 		
+	}
+	
+	@RequestMapping(value = "/myinfo", method = RequestMethod.GET)
+	public String SecondRequest(myInfoDto myinfoDto,Model model) {
+		
+		service.MemServiceSelect(myinfoDto.getSelfNAME());
+		return "hi";
 	}
 	
 }
