@@ -80,4 +80,9 @@ public class MemService {
 		}
 		
 	}
+	public void MemServiceSearch(String NAME, int NUM) {
+		
+		
+		
+	}
 }

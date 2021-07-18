@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,6 +174,17 @@ public class HomeController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("removeOK");
+		
+		return mav;
+	}
+	@RequestMapping(value = "/Login", method = RequestMethod.POST)
+	public ModelAndView fiveRequest(HttpSession session,myInfo myinfo) {
+		
+		// 서비스 객체에 이름과 학번을 비교하는 기능이 필요하다
+		myInfo myinfo2 = service.MemServiceSearch(myinfo.getNAME());
+		
+		(myInfo)session.getAttribute("info");
+				
 		
 		return mav;
 	}
