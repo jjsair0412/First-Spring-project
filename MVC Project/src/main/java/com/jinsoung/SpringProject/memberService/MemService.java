@@ -1,5 +1,7 @@
 package com.jinsoung.SpringProject.memberService;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class MemService {
 	
 	@Autowired
 	private myInfo myinfo;
+	
+	private ArrayList<myInfo> myLoginInfo = new ArrayList<myInfo>();
 	
 	private int result = 0;
 	public void MemServiceInsert(String NAME, int NUM, int AGE) {
@@ -80,9 +84,26 @@ public class MemService {
 		}
 		
 	}
-	public void MemServiceSearch(String NAME, int NUM) {
+	public myInfo MemServiceSearch(String NAME, int NUM) {
+		try {
+			String inputName = NAME;
+			int inputNum = NUM;
+
+			myinfo = dao.MemServiceSearch(NAME, NUM);
+			
+			myLoginInfo.add(myinfo);
+			if(myLoginInfo.contains(inputName) && myLoginInfo.contains(inputNum)) {
+
+				System.out.println("로그인 성공");
+				return myinfo;
+			}else {
+				return null;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
-		
-		
+		return myinfo;
 	}
 }

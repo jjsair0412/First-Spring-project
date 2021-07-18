@@ -1,11 +1,10 @@
 package com.jinsoung.SpringProject;
 
 import java.text.DateFormat;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -30,7 +29,6 @@ public class HomeController {
 	@Autowired
 	private MemService service;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -135,6 +133,8 @@ public class HomeController {
 	@RequestMapping(value = "/hi", method = RequestMethod.POST)
 	public String FirstRequest(myInfo myinfo /* getset 객체 명시, 이때 Setter들이 작동하며 변수들로 들어가게 된다.*/) {
 
+		
+		
 		service.MemServiceInsert(myinfo.getNAME(), myinfo.getNUM(), myinfo.getAGE());
 		return "hi";
 
@@ -177,16 +177,22 @@ public class HomeController {
 		
 		return mav;
 	}
-	@RequestMapping(value = "/Login", method = RequestMethod.POST)
-	public ModelAndView fiveRequest(HttpSession session,myInfo myinfo) {
+	@RequestMapping(value = "/SpringProject/LOGIN", method = RequestMethod.POST)
+	public String fiveRequest(myInfo myinfo,HttpSession session) {
 		
+	
 		// 서비스 객체에 이름과 학번을 비교하는 기능이 필요하다
-		myInfo myinfo2 = service.MemServiceSearch(myinfo.getNAME());
+		myInfo myinfo2 = service.MemServiceSearch(myinfo.getNAME(),myinfo.getNUM());
 		
-		(myInfo)session.getAttribute("info");
-				
+		System.out.println(myinfo2);
 		
-		return mav;
+		if(myinfo2 != null ) {
+			session.setAttribute("Login", myinfo2);
+			return "LoginOk";			
+		} else {
+			return "LoginFail";
+		}
+		
 	}
 	
 }
