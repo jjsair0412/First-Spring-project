@@ -21,8 +21,6 @@ public class MemService {
 	@Autowired
 	private myInfo myinfo;
 	
-	private ArrayList<myInfo> myLoginInfo = new ArrayList<myInfo>();
-	
 	private int result = 0;
 	public void MemServiceInsert(String NAME, int NUM, int AGE) {
 		
@@ -85,25 +83,20 @@ public class MemService {
 		
 	}
 	public myInfo MemServiceSearch(String NAME, int NUM) {
-		try {
 			String inputName = NAME;
 			int inputNum = NUM;
-
+			
 			myinfo = dao.MemServiceSearch(NAME, NUM);
 			
-			myLoginInfo.add(myinfo);
-			if(myLoginInfo.contains(inputName) && myLoginInfo.contains(inputNum)) {
-
+			if(myinfo.getNAME()!=null && myinfo.getNUM()!=0) {
 				System.out.println("로그인 성공");
 				return myinfo;
+			}else if(myinfo.getNAME()!=null || myinfo.getNUM()!=0) {
+				System.out.println("학번또는 이름을 잘못입력하셨습니다.");
+				return null;
 			}else {
 				return null;
 			}
 			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return myinfo;
 	}
 }

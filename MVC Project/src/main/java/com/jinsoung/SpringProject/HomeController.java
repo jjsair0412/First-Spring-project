@@ -177,7 +177,7 @@ public class HomeController {
 		
 		return mav;
 	}
-	@RequestMapping(value = "/SpringProject/LOGIN", method = RequestMethod.POST)
+	@RequestMapping(value = "/LOGIN", method = RequestMethod.POST)
 	public String fiveRequest(myInfo myinfo,HttpSession session) {
 		
 	
