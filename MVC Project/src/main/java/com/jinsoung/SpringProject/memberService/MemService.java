@@ -15,11 +15,15 @@ import com.jinsoung.SpringProject.memberDao.Dao;
 // 상단에 @Autowired만 작성한다면. 자동으로 객체가 주입되어 사용할수 있게 된다.
 @Service
 public class MemService {
-	@Autowired
-	Dao dao;
+	
+	private Dao dao;
+	private myInfo myinfo;
 	
 	@Autowired
-	private myInfo myinfo;
+	public MemService(Dao dao, myInfo myinfo) {
+		this.dao = dao;
+		this.myinfo = myinfo;
+	}
 	
 	private int result = 0;
 	public void MemServiceInsert(String NAME, int NUM, int AGE) {

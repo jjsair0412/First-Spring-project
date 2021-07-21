@@ -1,7 +1,7 @@
 package com.jinsoung.SpringProject;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,8 +26,13 @@ import com.jinsoung.SpringProject.memberService.MemService;
 public class HomeController {
 
 	// MemService객체를 new키워드로 생성하지 않아도, 해당 객체에 Service 어노테이션을 달아줫기 때문에, 객체가 자동으로 주입되게 된다.
-	@Autowired
 	private MemService service;
+	
+	@Autowired
+	public HomeController(MemService memService) {
+		this.service = memService;
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	/**
 	 * Simply selects the home view to render by returning its name.
